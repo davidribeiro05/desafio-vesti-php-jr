@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\Imagem;
 use App\Http\Controllers\Produto;
-use App\Models\Imagem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +24,8 @@ Route::post('/produto', [Produto::class, 'store']);
 Route::get('/produto/{id}', [Produto::class, 'show']);
 Route::patch('/produto/{id}', [Produto::class, 'update']);
 Route::delete('/produto/{id}', [Produto::class, 'destroy']);
+
+Route::post('/imagem', [Imagem::class, 'store']);
+Route::get('/imagem/{id}', [Imagem::class, 'show']);
+Route::patch('/imagem/{id}', [Imagem::class, 'update']);
+Route::delete('/imagem/{id}', [Imagem::class, 'destroy']);
