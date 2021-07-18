@@ -5,12 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Imagem\StoreImagemRequest;
 use App\Http\Requests\Imagem\UpdateImagemRequest;
 use App\Models\Imagem as ImagemModel;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 
 class Imagem extends Controller
 {
-    const PATH_IMG = 'produtos/imagens';
 
     public function store(StoreImagemRequest $request)
     {
@@ -23,11 +20,8 @@ class Imagem extends Controller
             );
         }
 
-        $novoNomeImagem = md5(time() . '-' . $request->imagem->getClientOriginalName()) . "." . $request->imagem->extension();
-
-        if (!$request->imagem->move(public_path(self::PATH_IMG), $novoNomeImagem)) {
-            return response()->json(['mensagem' => 'Não foi possível salvar a imagem.'], 406);
-        }
+        $novoNomeImagem = $imagem->novoNomeImagem($request);
+        $imagem->uploadImagem($request, $novoNomeImagem);
 
         $imagem->imagem = $novoNomeImagem;
         $imagem->produtos_id = $request->input('produtos_id');
@@ -48,8 +42,10 @@ class Imagem extends Controller
         return response()->json(['data' => ImagemModel::find($id)], 200);
     }
 
-    public function update(int $id, Request $request)
+    public function update(int $id, UpdateImagemRequest $request)
     {
+        $imagemModel = new ImagemModel();
+
         if (!ImagemModel::find($id)) {
             return response()->json(['mensagem' => 'Não existe registro com esse ID'], 404);
         }
@@ -57,11 +53,8 @@ class Imagem extends Controller
         $imagemAntiga = ImagemModel::find($id);
         $imagemNova = ImagemModel::find($id);
 
-        $novoNomeImagem = md5(time() . '-' . $request->imagem->getClientOriginalName()) . "." . $request->imagem->extension();
-
-        if (!$request->imagem->move(public_path(self::PATH_IMG), $novoNomeImagem)) {
-            return response()->json(['mensagem' => 'Não foi possível salvar a imagem.'], 406);
-        }
+        $novoNomeImagem = $imagemModel->novoNomeImagem($request);
+        $imagemModel->uploadImagem($request, $novoNomeImagem);
 
         $imagemNova->imagem = $novoNomeImagem;
 
@@ -69,7 +62,7 @@ class Imagem extends Controller
             return response()->json(['mensagem' => 'Falha ao editar imagem'], 404);
         }
 
-        File::delete(self::PATH_IMG . "/" . $imagemAntiga->imagem);
+        $imagemModel->removerImagem($imagemAntiga->imagem);
 
         return response()->json(['mensagem' => 'Imagem editada com sucesso', 'data' => $imagemNova], 200);
     }
@@ -86,7 +79,7 @@ class Imagem extends Controller
             return response()->json(['mensagem' => 'Não foi possível deletar essa imagem'], 404);
         }
 
-        File::delete(self::PATH_IMG . "/" . $imagem->imagem);
+        (new ImagemModel())->removerImagem($imagem->imagem);
 
         return response()->json(['mensagem' => 'Imagem excluida com sucesso'], 200);
     }
