@@ -23,7 +23,7 @@ class Imagem extends Model
      * @param integer $id 
      * @return boolean
      */
-    protected function validaImagensVinculadasAoProduto(int $id): bool
+    public function validaImagensVinculadasAoProduto(int $id): bool
     {
         $quantidadeDeImagens =  Imagem::where('produtos_id', $id)->count('imagem');
 
