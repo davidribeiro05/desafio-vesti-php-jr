@@ -7,7 +7,7 @@ use App\Http\Requests\Imagem\StoreImagemRequest;
 use App\Http\Requests\Imagem\UpdateImagemRequest;
 use App\Models\Imagem as ImagemModel;
 
-class Imagem extends Controller 
+class ImagemController extends Controller 
 {
     public function index()
     {       

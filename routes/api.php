@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\Imagem;
-use App\Http\Controllers\Api\Produto;
+use App\Http\Controllers\Api\ImagemController;
+use App\Http\Controllers\Api\ProdutoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,19 +19,19 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/produtos', [Produto::class, 'index']);
-Route::get('/imagens', [Imagem::class, 'index']);
+Route::get('/produtos', [ProdutoController::class, 'index']);
+Route::get('/imagens', [ImagemController::class, 'index']);
 
 Route::group(['middleware' => ['apiJwt']], function () {
-    Route::post('/produto', [Produto::class, 'store']);
-    Route::get('/produto/{id}', [Produto::class, 'show']);
-    Route::patch('/produto/{id}', [Produto::class, 'update']);
-    Route::delete('/produto/{id}', [Produto::class, 'destroy']);
+    Route::post('/produto', [ProdutoController::class, 'store']);
+    Route::get('/produto/{id}', [ProdutoController::class, 'show']);
+    Route::patch('/produto/{id}', [ProdutoController::class, 'update']);
+    Route::delete('/produto/{id}', [ProdutoController::class, 'destroy']);
 
-    Route::post('/imagem', [Imagem::class, 'store']);
-    Route::get('/imagem/{id}', [Imagem::class, 'show']);
-    Route::patch('/imagem/{id}', [Imagem::class, 'update']);
-    Route::delete('/imagem/{id}', [Imagem::class, 'destroy']);
+    Route::post('/imagem', [ImagemController::class, 'store']);
+    Route::get('/imagem/{id}', [ImagemController::class, 'show']);
+    Route::patch('/imagem/{id}', [ImagemController::class, 'update']);
+    Route::delete('/imagem/{id}', [ImagemController::class, 'destroy']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
 });

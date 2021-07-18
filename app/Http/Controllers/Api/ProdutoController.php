@@ -10,7 +10,7 @@ use App\Http\Resources\ProdutoResource;
 use App\Models\Produto as ProdutoModel;
 use App\Models\ProdutoHistorico;
 
-class Produto extends Controller
+class ProdutoController extends Controller
 {
     public function index()
     {       
