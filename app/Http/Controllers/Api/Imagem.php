@@ -9,6 +9,10 @@ use App\Models\Imagem as ImagemModel;
 
 class Imagem extends Controller 
 {
+    public function index()
+    {       
+        return response()->json(ImagemModel::all());
+    }
 
     public function store(StoreImagemRequest $request)
     {
