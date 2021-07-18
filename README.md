@@ -1,62 +1,108 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Desafio 215 Desenvolvedor JR. 
+## Api para loja de confecção do João
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### Configurando o banco
+1º Realizar a execução do script responsável por criar o banco de dados.
 
-## About Laravel
+### Configurando o Laravel
+1º Realizar o download do projeto
+2º Rodar o comando "composer install" (esta operação deve ser feita via terminal, é importante se certificar de que está dentro da pasta qual o projeto esteja localizado)
+3º Realizar uma cópia do arquivo .env.example o renomeando para .env
+4º Rodar o comando php artisan key:generate para criar a chave da aplicação
+5º Executar as migrations com o comando php artisan migrate
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+#### Códigos de erros
+Código | Descrição
+-------|----------
+404| Rota ou recurso inválido
+405| Método não encontrado
+406| Não aceitável
+422| Entidade não processada
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+#### Ambiente
+Inicialize o servidor utilizando o comando php artisan serve
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+#### Fluxo de utilização da API
+1º criar um usuário
+Rota | Método | Parâmetros
+-------|-------|----------
+http://127.0.0.1:8000/api/register | POST | string - nome, email, senha.
 
-## Learning Laravel
+2º Recuperar o token de acesso
+Rota | Método | Parâmetros
+-------|-------|----------
+http://127.0.0.1:8000/api/login | POST | string - email, password.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+--------------------------------------------------------
+# Observações
+#### Todas as rotas de CRUD necessitam do token.
+#### Rotas do tipo PATCH devem usar o verbo POST enviando como parâmetro _method=PATCH
+#### Para enviar arquivos utilize a estrutura Multipart Form
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Parâmetro para rota PATCH
+Tipo | Nome | Valor | Obrigatório
+-------|-------|----------|--------
+string | _method | PATCH | Sim
+--------------------------------------------------------
+# Rotas para entidade Produto
+Lita de parâmetros da API para a entidade Produto
+Tipo | Nome | Exemplo | Obrigatório
+-------|-------|----------|--------
+string | codigo | CMS01| Sim
+string | categoria | fit| Sim
+float | preco | 39.25| Sim
+string | composicao | Tecido de algodão| Sim
+string | tamanho | m| Sim
+int | quantidade | 5| Sim
+string | nome | Camisa Cinza| Sim
+int | id | 1 | Somente em rotas de edição e exclusão
 
-## Laravel Sponsors
+## Para realizar o cadastro do Produto
+Rota | Método | Parâmetros
+-------|-------|----------
+http://127.0.0.1:8000/api/produto/ | POST | Verificar parâmetros da entidade Produto.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Para realizar a edição do Produto
+Rota | Método | Parâmetros
+-------|-------|----------
+http://127.0.0.1:8000/api/produto/{id} | PATCH | Verificar parâmetros da entidade Produto.
 
-### Premium Partners
+## Para realizar a exclusão do PRODUTO
+Rota | Método | Parâmetros
+-------|-------|----------
+http://127.0.0.1:8000/api/produto/{id} | DELETE | id.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
+## Para buscar através do ID
+Rota | Método | Parâmetros
+-------|-------|----------
+http://127.0.0.1:8000/api/produto/{id} | GET | id.
 
-## Contributing
+--------------------------------------------------------
+# Rotas para entidade Imagem
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Lita de parâmetros da API para a entidade Imagem
+Tipo | Nome | Exemplo | Obrigatório
+-------|-------|----------|--------
+file | imagem | helloword.jpg | Sim
+int | produtos_id | 1 | Sim
+int | id | 1 | Somente em rotas de edição e exclusão
 
-## Code of Conduct
+## Para realizar o cadastro da Imagem
+Rota | Método | Parâmetros
+-------|-------|----------
+http://127.0.0.1:8000/api/imagem | POST | Verificar parâmetros da entidade Imagem.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Para realizar a edição da Imagem
+Rota | Método | Parâmetros
+-------|-------|----------
+http://127.0.0.1:8000/api/imagem/{id} | PATCH | Verificar parâmetros da entidade Produto.
 
-## Security Vulnerabilities
+## Para realizar a exclusão da Imagem
+Rota | Método | Parâmetros
+-------|-------|----------
+http://127.0.0.1:8000/api/imagem/{id} | DELETE | id.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Para buscar através do ID
+Rota | Método | Parâmetros
+-------|-------|----------
+http://127.0.0.1:8000/api/imagem/{id} | GET | id.
