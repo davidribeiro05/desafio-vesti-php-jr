@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ProdutoResource;
 use App\Models\Produto as ProdutoModel;
+use App\Models\ProdutoHistorico;
 use Illuminate\Http\Request;
 
 class Produto extends Controller
@@ -23,6 +24,8 @@ class Produto extends Controller
         if (!$produto->save()) {
             return response()->json(['mensagem' => 'Falha ao salvar registro'], 404);
         }
+
+        ProdutoHistorico::gerarHistorico($produto, 'SALVAR');
 
         return response()->json(['mensagem' => 'Produto cadastrado com sucesso', 'data' => $produto], 201);
     }
@@ -56,6 +59,8 @@ class Produto extends Controller
             return response()->json(['mensagem' => 'Falha ao editar registro'], 404);
         }
 
+        ProdutoHistorico::gerarHistorico($produto, 'EDITAR');
+
         return response()->json(['mensagem' => 'Produto editado com sucesso', 'data' => $produto], 200);
     }
 
@@ -65,9 +70,13 @@ class Produto extends Controller
             return response()->json(['mensagem' => 'Não existe registro com esse ID'], 404);
         }
 
+        $produto = ProdutoModel::find($id);
+
         if (!ProdutoModel::destroy($id)) {
             return response()->json(['mensagem' => 'Não foi possível deletar esse produto'], 404);
         }
+
+        ProdutoHistorico::gerarHistorico($produto, 'EXCLUIR');
 
         return response()->json(['mensagem' => 'Produto excluido com sucesso'], 200);
     }
