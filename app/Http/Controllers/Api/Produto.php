@@ -12,6 +12,11 @@ use App\Models\ProdutoHistorico;
 
 class Produto extends Controller
 {
+    public function index()
+    {       
+        return response()->json((new ProdutoModel())->produtosComImagens());
+    }
+
     public function store(StoreProdutoRequest $request)
     {
         $produto = new ProdutoModel();
