@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Produto\StoreProdutoRequest;
 use App\Http\Requests\Produto\UpdateProdutoRequest;
 use App\Http\Resources\ProdutoResource;
 use App\Models\Produto as ProdutoModel;
 use App\Models\ProdutoHistorico;
-use Illuminate\Http\Request;
 
 class Produto extends Controller
 {

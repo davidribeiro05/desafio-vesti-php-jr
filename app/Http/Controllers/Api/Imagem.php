@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Imagem\StoreImagemRequest;
 use App\Http\Requests\Imagem\UpdateImagemRequest;
 use App\Models\Imagem as ImagemModel;
 
-class Imagem extends Controller
+class Imagem extends Controller 
 {
 
     public function store(StoreImagemRequest $request)
