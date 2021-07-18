@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Produto\StoreProdutoRequest;
+use App\Http\Requests\Produto\UpdateProdutoRequest;
 use App\Http\Resources\ProdutoResource;
 use App\Models\Produto as ProdutoModel;
 use App\Models\ProdutoHistorico;
@@ -9,7 +11,7 @@ use Illuminate\Http\Request;
 
 class Produto extends Controller
 {
-    public function store(Request $request)
+    public function store(StoreProdutoRequest $request)
     {
         $produto = new ProdutoModel();
 
@@ -39,7 +41,7 @@ class Produto extends Controller
         return new ProdutoResource(ProdutoModel::find($id));
     }
 
-    public function update(int $id, Request $request)
+    public function update(int $id, UpdateProdutoRequest $request)
     {
         if (!ProdutoModel::find($id)) {
             return response()->json(['mensagem' => 'Não existe registro com esse ID'], 404);
@@ -47,13 +49,13 @@ class Produto extends Controller
 
         $produto = ProdutoModel::find($id);
 
-        $produto->nome = $request->input('nome', $produto->nome);
-        $produto->categoria = $request->input('categoria', $produto->categoria);
-        $produto->preco = $request->input('preco', $produto->preco);
-        $produto->tamanho = $request->input('tamanho', $produto->tamanho);
-        $produto->qtd_produto = $request->input('quantidade', $produto->qtd_produto);
-        $produto->codigo = $request->input('codigo', $produto->codigo);
-        $produto->composicao = $request->input('composicao', $produto->composicao);
+        $produto->nome = $this->validaCampoVazio($request->input('nome'), $produto->nome);
+        $produto->categoria = $this->validaCampoVazio($request->input('categoria'), $produto->categoria);
+        $produto->preco = $this->validaCampoVazio($request->input('preco'), $produto->preco);
+        $produto->tamanho = $this->validaCampoVazio($request->input('tamanho'), $produto->tamanho);
+        $produto->qtd_produto = $this->validaCampoVazio($request->input('quantidade'), $produto->qtd_produto);
+        $produto->codigo = $this->validaCampoVazio($request->input('codigo'), $produto->codigo);
+        $produto->composicao = $this->validaCampoVazio($request->input('composicao'), $produto->composicao);
 
         if (!$produto->save()) {
             return response()->json(['mensagem' => 'Falha ao editar registro'], 404);
@@ -79,5 +81,14 @@ class Produto extends Controller
         ProdutoHistorico::gerarHistorico($produto, 'EXCLUIR');
 
         return response()->json(['mensagem' => 'Produto excluido com sucesso'], 200);
+    }
+
+    private function validaCampoVazio($campoASerValidado, $valorASerAtribuido)
+    {
+        if (strlen($campoASerValidado) == 0) {
+            return $valorASerAtribuido;
+        }
+
+        return $campoASerValidado;
     }
 }
