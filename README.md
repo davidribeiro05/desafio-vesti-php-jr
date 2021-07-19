@@ -47,7 +47,7 @@ Tipo | Nome | Valor | Obrigatório
 string | _method | PATCH | Sim
 --------------------------------------------------------
 # Rotas para entidade Produto
-Lita de parâmetros da API para a entidade Produto
+Lista de parâmetros da API para a entidade Produto
 Tipo | Nome | Exemplo | Obrigatório
 -------|-------|----------|--------
 string | codigo | CMS01| Sim
@@ -82,7 +82,7 @@ http://127.0.0.1:8000/api/produto/{id} | GET | id.
 --------------------------------------------------------
 # Rotas para entidade Imagem
 
-Lita de parâmetros da API para a entidade Imagem
+Lista de parâmetros da API para a entidade Imagem
 Tipo | Nome | Exemplo | Obrigatório
 -------|-------|----------|--------
 file | imagem | helloword.jpg | Sim
@@ -112,7 +112,7 @@ http://127.0.0.1:8000/api/imagem/{id} | GET | id.
 -----------------------------------------------------------------------
 # Rotas para entidade Histórico dos produtos
 
-Lita de parâmetros da API para a entidade Imagem
+Lista de parâmetros da API para a entidade Histórico dos produtos
 Tipo | Nome | Exemplo | Obrigatório
 -------|-------|----------|--------
 int | id | 1 | Sim
