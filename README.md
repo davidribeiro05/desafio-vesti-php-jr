@@ -2,7 +2,7 @@
 ## Api para loja de confecção do João
 
 ### Configurando o banco
-1º Realizar a execução do script responsável por criar o banco de dados.
+1º Realizar a execução do script responsável por criar o banco de dados start_loja_joao.sql .
 
 ### Configurando o Laravel
 1º Realizar o download do projeto &nbsp;
