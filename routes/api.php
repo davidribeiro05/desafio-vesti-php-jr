@@ -20,15 +20,15 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/produtos', [ProdutoController::class, 'index']);
-Route::get('/imagens', [ImagemController::class, 'index']);
-
 Route::group(['middleware' => ['apiJwt']], function () {
+
+    Route::get('/produtos', [ProdutoController::class, 'index']);
     Route::post('/produto', [ProdutoController::class, 'store']);
     Route::get('/produto/{id}', [ProdutoController::class, 'show']);
     Route::patch('/produto/{id}', [ProdutoController::class, 'update']);
     Route::delete('/produto/{id}', [ProdutoController::class, 'destroy']);
 
+    Route::get('/imagens', [ImagemController::class, 'index']);
     Route::post('/imagem', [ImagemController::class, 'store']);
     Route::get('/imagem/{id}', [ImagemController::class, 'show']);
     Route::patch('/imagem/{id}', [ImagemController::class, 'update']);
