@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ImagemController;
 use App\Http\Controllers\Api\ProdutoController;
+use App\Http\Controllers\Api\ProdutoHistoricoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,5 +34,7 @@ Route::group(['middleware' => ['apiJwt']], function () {
     Route::patch('/imagem/{id}', [ImagemController::class, 'update']);
     Route::delete('/imagem/{id}', [ImagemController::class, 'destroy']);
 
+    Route::get('/historico/produtos', [ProdutoHistoricoController::class, 'index']);
+    Route::get('/historico/produto/{id}', [ProdutoHistoricoController::class, 'show']);
     Route::post('/logout', [AuthController::class, 'logout']);
 });
