@@ -5,12 +5,13 @@
 1º Realizar a execução do script responsável por criar o banco de dados.
 
 ### Configurando o Laravel
-1º Realizar o download do projeto
-2º Rodar o comando "composer install" (esta operação deve ser feita via terminal, é importante se certificar de que está dentro da pasta qual o projeto esteja localizado)
-3º Realizar uma cópia do arquivo .env.example o renomeando para .env
-4º Rodar o comando php artisan key:generate para criar a chave da aplicação
-5º Configurar a conexão com o banco de dados e apontar para o schema loja_joao
-6º Executar as migrations com o comando php artisan migrate
+1º Realizar o download do projeto &nbsp;
+2º Rodar o comando "composer install" (esta operação deve ser feita via terminal, é importante se certificar de que está dentro da pasta qual o projeto esteja localizado) &nbsp;
+3º Realizar uma cópia do arquivo .env.example o renomeando para .env &nbsp;
+4º Rodar o comando php artisan key:generate para criar a chave da aplicação &nbsp;
+5º Rodar o comando php artisan jwt:secret &nbsp;
+5º Configurar a conexão com o banco de dados e apontar para o schema loja_joao &nbsp;
+6º Executar as migrations com o comando php artisan migrate &nbsp;
 
 #### Códigos de erros
 Código | Descrição
