@@ -35,7 +35,7 @@ http://127.0.0.1:8000/api/login | POST | string - email, password.
 
 --------------------------------------------------------
 # Observações
-#### Todas as rotas de CRUD necessitam do token.
+#### Todas as rotas de CRUD necessitam do token. O token deve ser informado via bearer token
 #### Rotas do tipo PATCH devem usar o verbo POST enviando como parâmetro _method=PATCH
 #### Para enviar arquivos utilize a estrutura Multipart Form
 
@@ -106,3 +106,22 @@ http://127.0.0.1:8000/api/imagem/{id} | DELETE | id.
 Rota | Método | Parâmetros
 -------|-------|----------
 http://127.0.0.1:8000/api/imagem/{id} | GET | id.
+
+-----------------------------------------------------------------------
+# Rotas para entidade Histórico dos produtos
+
+Lita de parâmetros da API para a entidade Imagem
+Tipo | Nome | Exemplo | Obrigatório
+-------|-------|----------|--------
+int | id | 1 | Sim
+##### Observação o ID informado deve ser do produto
+
+## Para buscar através do ID
+Rota | Método | Parâmetros
+-------|-------|----------
+http://127.0.0.1:8000/api/historico/produto/{id} | GET | id.
+
+## Para buscar todos os registros
+Rota | Método | Parâmetros
+-------|-------|----------
+http://127.0.0.1:8000/api/historico/produtos | GET | id.
