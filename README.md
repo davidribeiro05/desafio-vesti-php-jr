@@ -9,7 +9,8 @@
 2º Rodar o comando "composer install" (esta operação deve ser feita via terminal, é importante se certificar de que está dentro da pasta qual o projeto esteja localizado)
 3º Realizar uma cópia do arquivo .env.example o renomeando para .env
 4º Rodar o comando php artisan key:generate para criar a chave da aplicação
-5º Executar as migrations com o comando php artisan migrate
+5º Configurar a conexão com o banco de dados e apontar para o schema loja_joao
+6º Executar as migrations com o comando php artisan migrate
 
 #### Códigos de erros
 Código | Descrição
